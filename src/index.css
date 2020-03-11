@@ -95,7 +95,7 @@ a {
   .contenedor-app {
       display: flex;
       min-height: 100vh;
-      display: Bblock;
+      display: block;
       width: 100%;
   }
 
