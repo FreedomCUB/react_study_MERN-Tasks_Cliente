@@ -1,59 +1,83 @@
-import React, {useState} from "react";
-import {Link} from 'react-router-dom'
+import React, { useState, useContext } from "react";
+import { Link } from "react-router-dom";
+import AlertContext from '../../context/alerts/alertContext';
 
 
 const NewAccount = () => {
-  
+
+  //context
+  const alertContext = useContext(AlertContext);
+  const { alert, showAlert } = alertContext;
+
+
+
   //state form
   const [user, setUser] = useState({
-      nombre:"",
-      email:"",
-      password:"",
-      password2:""
-  })
+    name: "",
+    email: "",
+    password: "",
+    password2: ""
+  });
 
   // destructuring user
-  const { nombre, email, password, password2 } = user;
-
-  
-
+  const { name, email, password, password2 } = user;
 
   const onChangeLog = e => {
-     setUser({
-       ...user,
-       [e.target.name] : e.target.value      
-     })
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value
+    });
   };
 
   const onSubmitLog = e => {
-     e.preventDefault();
+    e.preventDefault();
 
+    // validation
+    if (
+      name.trim() === "" ||
+      email.trim() === "" ||
+      password.trim() === "" ||
+      password2.trim() === ""
+    ) {
+      showAlert("Todos los campos son obligatorios", "alerta-error");
+      return;
+    }
 
-     // validation
+    if (password.length < 6) {
+      showAlert(
+        "El password debe ser de al menos 6 caracteres",
+        "alerta-error"
+      );
+      return;
+    }
 
-
-     
-  }
+    if (password !== password2) {
+      showAlert(
+        "Los password no son iguales ",
+        "alerta-error"
+      );
+      
+    }
+  };
 
   return (
     <div className="form-usuario">
+      {alert ? (<div className={`alerta ${alert.category}`}> {alert.msg} </div>) : null}
       <div className="contenedor-form sombra-dark">
         <h1>Obtener una Cuenta</h1>
 
-        <form
-          onSubmit={onSubmitLog}
-        >
+        <form onSubmit={onSubmitLog}>
           <div className="campo-form">
-            <label htmlFor="nombre">Nombre</label>
+            <label htmlFor="name">Nombre</label>
             <input
               type="text"
-              id="nombre"
-              name="nombre"
+              id="name"
+              name="name"
               placeholder="Tu Nombre"
-              value={nombre}
+              value={name}
               onChange={onChangeLog}
             />
-          </div>  
+          </div>
           <div className="campo-form">
             <label htmlFor="email">Email</label>
             <input
@@ -96,11 +120,12 @@ const NewAccount = () => {
             />
           </div>
         </form>
-        <Link to={"/"} className="enlace-cuenta">iniciar sesión</Link>
+        <Link to={"/"} className="enlace-cuenta">
+          iniciar sesión
+        </Link>
       </div>
     </div>
   );
 };
-
 
 export default NewAccount;
