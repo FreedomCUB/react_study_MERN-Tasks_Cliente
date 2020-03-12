@@ -1,15 +1,28 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
-import AlertContext from '../../context/alerts/alertContext';
+import AlertContext from "../../context/alerts/alertContext";
+import AuthContext from "../../context/auth/authContext";
 
-
-const NewAccount = () => {
-
+const NewAccount = (props) => {
   //context
   const alertContext = useContext(AlertContext);
   const { alert, showAlert } = alertContext;
 
+  const authContext = useContext(AuthContext);
+  const { message, authenticated, registerUser } = authContext;
 
+  // useffect for all
+  useEffect(() => {
+    
+    if (authenticated) {
+      props.history.push('/projects')      
+    }
+
+    if (message) {
+      showAlert(message.msg, message.category)      
+    }
+    
+  }, [message, authenticated, props.history])
 
   //state form
   const [user, setUser] = useState({
@@ -52,17 +65,22 @@ const NewAccount = () => {
     }
 
     if (password !== password2) {
-      showAlert(
-        "Los password no son iguales ",
-        "alerta-error"
-      );
-      
+      showAlert("Los password no son iguales ", "alerta-error");
+      return;
     }
+
+    registerUser({
+      name,
+      email,
+      password
+    });
   };
 
   return (
     <div className="form-usuario">
-      {alert ? (<div className={`alerta ${alert.category}`}> {alert.msg} </div>) : null}
+      {alert ? (
+        <div className={`alerta ${alert.category}`}> {alert.msg} </div>
+      ) : null}
       <div className="contenedor-form sombra-dark">
         <h1>Obtener una Cuenta</h1>
 

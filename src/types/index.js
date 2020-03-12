@@ -17,8 +17,8 @@ export const UPDATE_TASK  = "UPDATE_TASK";
 export const SHOW_ALERT  = "SHOW_ALERT";
 export const HIDE_ALERT  = "HIDE_ALERT";
 
-export const SINGUP_SUCCESS  = "SINGUP_SUCCESS";
-export const SINGUP_ERROR  = "SINGUP_ERROR";
+export const REGISTRY_SUCCESS  = "REGISTRY_SUCCESS";
+export const REGISTRY_ERROR  = "REGISTRY_ERROR";
 export const FIND_USER  = "FIND_USER";
 export const LOGIN_SUCCESS  = "LOGIN_SUCCESS";
 export const LOGIN_ERROR  = "LOGIN_ERROR";
