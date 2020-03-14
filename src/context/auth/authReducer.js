@@ -11,7 +11,7 @@ export default (state, action) => {
   switch (action.type) {
     case REGISTRY_SUCCESS:
     case LOGIN_SUCCESS:
-      localStorage.setItem("token", action.payload.token);
+      localStorage.setItem("token", action.payload);
       return {
         ...state,
         authenticated: true,
