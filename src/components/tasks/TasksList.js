@@ -31,7 +31,7 @@ const TasksList = () => {
         ) : (
           <TransitionGroup>
             {tasksProject.map(task => (
-              <CSSTransition key={task.id} timeout={300} classNames="tarea" >
+              <CSSTransition key={task._id} timeout={300} classNames="tarea" >
                 <Task task={task} />
               </CSSTransition>
             ))}

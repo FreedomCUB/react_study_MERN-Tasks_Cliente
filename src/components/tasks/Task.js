@@ -10,9 +10,9 @@ const Task = ({ task }) => {
     saveActualTask
   } = tasksContext;
 
-  const delTask = id => {
-    deleteTask(id);
-    findTasks(task.projectId);
+  const delTask = id => {    
+    deleteTask(id, task.project);
+    findTasks(task.project);
   };
 
   const changeState = task => {
@@ -62,7 +62,7 @@ const Task = ({ task }) => {
         <button
           type="button"
           className="btn btn-secundario"
-          onClick={() => delTask(task.id)}
+          onClick={() => delTask(task._id)}
         >
           Eliminar
         </button>
