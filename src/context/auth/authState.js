@@ -27,7 +27,7 @@ const AuthState = props => {
   const registerUser = async data => {
     try {
       const answer = await clientAxios.post("/api/users", data);
-      console.log(answer.data);
+      //console.log(answer.data);
 
       dispatch({
         type: REGISTRY_SUCCESS,
