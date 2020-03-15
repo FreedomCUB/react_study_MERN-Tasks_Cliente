@@ -62,7 +62,7 @@ const FormTasks = () => {
         updateTask(task);
     }
 
-    findTasks(actualProject.id);
+    findTasks(actualProject._id);
 
 
     setTask({

@@ -36,7 +36,7 @@ export default (state, action) => {
       return {
         ...state,
         tasksProject: state.tasksProject.map(task =>
-          task.id === action.payload.id ? action.payload : task
+          task._id === action.payload._id ? action.payload : task
         ),
         selectedTask: null
       };
