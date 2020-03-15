@@ -13,8 +13,15 @@ const FormTasks = () => {
     findTasks,
     validTask,
     errorTask,
-    updateTask
+    updateTask,
+    cleanTask
   } = tasksContext;
+
+  // State
+
+  const [task, setTask] = useState({
+    name: ""
+  });
 
   // Efect
   useEffect(() => {
@@ -26,12 +33,6 @@ const FormTasks = () => {
       });
     }
   }, [selectedTask]);
-
-  // State
-
-  const [task, setTask] = useState({
-    name: ""
-  });
 
   const { name } = task;
 
@@ -56,14 +57,16 @@ const FormTasks = () => {
     }
 
     if (selectedTask === null) {
-      task.project = actualProject._id;      
+      task.project = actualProject._id;
+      task.created = Date.now()      
       addTask(task);
+      findTasks(actualProject._id);
     } else {
-        updateTask(task);
-    }
+      updateTask(task);
+      cleanTask();
+    }   
 
     findTasks(actualProject._id);
-
 
     setTask({
       name: ""

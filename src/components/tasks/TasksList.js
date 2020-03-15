@@ -11,6 +11,7 @@ const TasksList = () => {
 
   const tasksContext = useContext(taskContext);
   const { tasksProject } = tasksContext;
+  
 
   if (!project) return <h2>Seleccione un proyecto</h2>;
 
@@ -36,6 +37,7 @@ const TasksList = () => {
               </CSSTransition>
             ))}
           </TransitionGroup>
+          
         )}
       </ul>
       <button type="button" className="btn  btn-eliminar" onClick={onClickDel}>

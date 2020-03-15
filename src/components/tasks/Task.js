@@ -10,9 +10,7 @@ const Task = ({ task }) => {
     saveActualTask
   } = tasksContext;
 
-  const {project} = task;
-
-  console.log(task)
+  const {project} = task;  
 
   const delTask = task => {  
     

@@ -10,7 +10,8 @@ import {
   DELETE_TASK,
   STATE_TASK,
   ACTUAL_TASK,
-  UPDATE_TASK
+  UPDATE_TASK,
+  CLEAN_TASK
 } from "../../types/index";
 
 const TaskState = props => {
@@ -40,10 +41,10 @@ const TaskState = props => {
   const addTask = async task => {
     try {
       const answer = await clientAxios.post("/api/tasks", task);
-
+      
       dispatch({
         type: ADD_TASK,
-        payload: task
+        payload: answer.data
       });
     } catch (error) {
       console.log(error);
@@ -91,6 +92,12 @@ const TaskState = props => {
     });
   };
 
+  const cleanTask = () => {
+    dispatch({
+        type: CLEAN_TASK
+    })
+}
+
   return (
     <TaskContext.Provider
       value={{
@@ -103,7 +110,8 @@ const TaskState = props => {
         deleteTask,
         changeStateTask,
         saveActualTask,
-        updateTask
+        updateTask,
+        cleanTask
       }}
     >
       {props.children}
