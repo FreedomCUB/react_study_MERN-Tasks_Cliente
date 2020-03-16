@@ -7,8 +7,7 @@ import {
   TASKS_PROJECT,
   ADD_TASK,
   ERROR_TASK,
-  DELETE_TASK,
-  STATE_TASK,
+  DELETE_TASK,  
   ACTUAL_TASK,
   UPDATE_TASK,
   CLEAN_TASK
@@ -41,7 +40,7 @@ const TaskState = props => {
   const addTask = async task => {
     try {
       const answer = await clientAxios.post("/api/tasks", task);
-      
+
       dispatch({
         type: ADD_TASK,
         payload: answer.data
@@ -59,7 +58,7 @@ const TaskState = props => {
 
   const deleteTask = async (id, project) => {
     try {
-      await clientAxios.delete(`/api/tasks/${id}`, {params: {project}});
+      await clientAxios.delete(`/api/tasks/${id}`, { params: { project } });
 
       dispatch({
         type: DELETE_TASK,
@@ -68,14 +67,6 @@ const TaskState = props => {
     } catch (error) {
       console.log(error.response);
     }
-    
-  };
-
-  const changeStateTask = task => {
-    dispatch({
-      type: STATE_TASK,
-      payload: task
-    });
   };
 
   const saveActualTask = task => {
@@ -85,18 +76,24 @@ const TaskState = props => {
     });
   };
 
-  const updateTask = task => {
-    dispatch({
-      type: UPDATE_TASK,
-      payload: task
-    });
+  const updateTask = async task => {
+    try {
+      const answer = await clientAxios.put(`/api/tasks/${task._id}`, task);
+
+      dispatch({
+        type: UPDATE_TASK,
+        payload: answer.data.task
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const cleanTask = () => {
     dispatch({
-        type: CLEAN_TASK
-    })
-}
+      type: CLEAN_TASK
+    });
+  };
 
   return (
     <TaskContext.Provider
@@ -108,7 +105,6 @@ const TaskState = props => {
         addTask,
         validTask,
         deleteTask,
-        changeStateTask,
         saveActualTask,
         updateTask,
         cleanTask

@@ -6,11 +6,11 @@ const Task = ({ task }) => {
   const {
     deleteTask,
     findTasks,
-    changeStateTask,
+    updateTask,
     saveActualTask
   } = tasksContext;
 
-  const {project} = task;  
+  
 
   const delTask = task => {  
     
@@ -25,7 +25,7 @@ const Task = ({ task }) => {
       task.state = true;
     }
 
-    changeStateTask(task);
+    updateTask(task);
   };
 
   const selectTask = task => {
